@@ -1,5 +1,5 @@
 # FossilCarbon
-Data 
+# Data 
 All data related to Exiobase datasets (except deflator data, waste coefficients, and lifetime data) were obtained through https://zenodo.org/record/3583071#.X0jqmGjVJPZ. The said exceptions were directly obtained through the Exiobase team.
 'Carbon Content.xls' holds the fossil carbon content of all products listed in different MT-HSUT accounts in Exiobase 3
 'Concordance.xlsx' is the concordance for country orders between hybrid and monetary SUT tables.
