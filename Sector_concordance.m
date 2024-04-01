@@ -345,19 +345,13 @@ WasteSup=readtable('MR_HSUTs_2011_v3_3_18_13_extensions.xlsx','Sheet','waste_sup
 WasteSup=WasteSup(:,3:end);
 WasteSup_d=table2array(WasteSup);
 WasteFC=table2array(WasteFrac(1:19,4));
-%WasteFC(15)=0;
-%WasteFC(15)=0.1;
-%WasteFC(15)=0.2;
-%WasteFC(15)=0.3;
-%WasteFC(15)=0.4;
+
 
 %Litter
 WasteLit=readtable('MR_HSUTs_2011_v3_3_18_13_extensions.xlsx','Sheet','Unreg_w_act','PreserveVariableNames',true);%unregistered waste
 WasteLit=WasteLit(:,3:end);
 WasteLit_d=squeeze(sum(reshape(table2array(WasteLit.*WasteFC)/10^9,19,164,48),3));
 sum(sum(WasteLit_d.*Waste_act(1:164)))
-
-sum(sum(WasteLit_d(:,[110,111])))
 
 
 WasteSupFD=readtable('MR_HSUTs_2011_v3_3_18_13_extensions.xlsx','Sheet','waste_sup_FD','PreserveVariableNames',true);%Final Demand Waste Supply
@@ -366,32 +360,19 @@ WasteSupFD(:,1:2)=[];
 WasteSupFD(:,6:6:end)=[];
 WasteSupFD(:,5:6:end)=[];
 WasteSupFD(:,4:6:end)=[];
-sum(sum(table2array(WasteSupFD)))
 WasteSupFDFC=table2array(WasteSupFD).*WasteFC;
-sum(sum(WasteSupFDFC))
 
 %% Waste Use
 
 WasteUse=WasteUse(:,3:end);
 WasteUse_d=table2array(WasteUse);
 WasteUseFC=use_d;UseFCBal;.*wvectorIOT;.*wvectorIOT;servsecs;ReUsesecs;energysecs;;mvector;
-WasteUseFC=WasteUsed.*wvectorIOT;table2array(WasteFrac(:,3));.*wvectorIOT;;.*mvector;servsecs;ReUsesecs;energysecs;;mvector;
+WasteUseFC=WasteUse_d.*wvectorIOT;table2array(WasteFrac(:,3));.*wvectorIOT;;.*mvector;servsecs;ReUsesecs;energysecs;;mvector;
 sum(sum(WasteUseFC))
 
 %% Stocks 2 Waste
 StockstoWaste=readtable('MR_HSUTs_2011_v3_3_18_13_stock_to_waste.csv');
 
-% Input string array
-str = string(table2array(StockstoWaste(:,53)));
-
-% Define the regular expression pattern to match numbers
-pattern = '\d+\.\d+|\d+';
-
-% Use the regexp function to find all matches
-matches = regexp(str, pattern, 'match');
-% Iterate through the matches and convert them to numbers
-numbers = cellfun(@cell2mat, matches, 'UniformOutput', false);
-numbers=str2double(numbers);
 
 StockstoWaste(:,53)=[];
 StockstoWaste=[StockstoWaste, table(numbers)];
@@ -433,30 +414,4 @@ sum(MVFDFC)
 MVUse=table2array(MVUse);
 MVUseFC=sum(sum(MVUse.*WasteFC));
 sum(MVUseFC)
-
-sum(table2array(MVUse).*WasteFC,2)+sum(sum(table2array(MVFD).*WasteFC,2))
-%% Material Discharge for Products supplied to Non-energy Sectors
-% Lifetime Function
-LifeTime=readtable('Lifetime_funct_all_exiobase.xlsx','Sheet','lifetime_funct','PreserveVariableNames',true);
-LifeTime.Properties.RowNames=string(table2array(LifeTime(:,1)));
-LifeTime(:,1:3)=[];
-LT=repmat(table2array(LifeTime),48,1);
-PMB=repmat(table2array(CC(1:200,6)),48,1);
-PMB_Lifetime=zeros(9600,99);
-sup_d=sum(TotFC.*mvector,2).*PMB;
-for i=1:9600
-    for j=1:99
-        PMB_Lifetime(i,j)=LT(i,j)*PMB(i)*sup_d(i);
-    end
-end
-
-sum(sum(PMB_Lifetime))
-writematrix(PMB_Lifetime, 'Material_Discharge.xlsx')
-PMB_Lifetime_FC=PMB_Lifetime.*UseFCBal;
-sum(PMB_Lifetime_FC)
-writematrix(PMB_Lifetime_FC, 'Material_Discharge.xlsx','Sheet','Fossil Carbon Discharge')
-writematrix(sum(PMB_Lifetime_FC), 'Material_Discharge.xlsx','Sheet','FC Discharge Years')
-writematrix(sum(PMB_Lifetime_FC), 'Material_Discharge.xlsx','Sheet','FC Discharge Years Mvector')
-
-FC_discharge=sum(PMB_Lifetime_FC);
 
