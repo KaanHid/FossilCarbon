@@ -1,6 +1,6 @@
 # FossilCarbon
 # Data 
-All data related to Exiobase datasets (except deflator data, waste coefficients, and lifetime data) were obtained through https://zenodo.org/record/3583071#.X0jqmGjVJPZ and https://zenodo.org/records/10148587. Other files were directly obtained through the Exiobase team.
+All data related to Exiobase datasets (except deflator data, waste coefficients, and lifetime data) were obtained through https://zenodo.org/records/10148587 and https://zenodo.org/record/3583071#.X0jqmGjVJPZ. Other files were directly obtained through the Exiobase team.
 'Carbon Content.xls' holds the fossil carbon content of all products listed in different MT-HSUT accounts in Exiobase 3
 'Concordance.xlsx' is the concordance for country orders between hybrid and monetary SUT tables.
 'Deflator2011base.xlsx' is the deflator data from Exiobase 3 team, with base year converted to 2011, also adjusted the countries to the ordering of the monetary dataset.
@@ -13,4 +13,8 @@ All data related to Exiobase datasets (except deflator data, waste coefficients,
 'Classifications_v_3_3_18.xlsx' has the necessary information to classify countries, products, and sectors.
 'MR_HUSE_2011_v3_3_18_13.csv' contains the inter-industry transactions in hybrid units.
 'exio_transfer_coeff.xlsx' holds the data regarding embodied materials in activities/processes in Exiobase 3.
+'capital_calculation' contains the matlab code for calculating embodied materials and stock build-up in sectors
+'DurablestoWasteTreatment'contains the matlab code for estimating the treatment of fossil carbon durables in different waste treatment options
+'MonteCarlo_EoL.m', 'MonteCarlo_GAS.m', and 'MonteCarloWasteTreatment' are the matlab codes for conducting Monte Carlo analysis on results related to end-of-life flows, gross addition to stocks of durables, and waste treatment, respectively.
+
 
